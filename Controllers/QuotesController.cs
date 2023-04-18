@@ -42,6 +42,7 @@ public class QuotesController : ControllerBase
 
         documentList.ForEach(item => {
             var dotNetObj = BsonTypeMapper.MapToDotNetValue(item);
+            Console.WriteLine(dotNetObj.ToString());
             jsonArray.Append(dotNetObj);
         });
         

@@ -35,6 +35,8 @@ public class QuotesController : ControllerBase
 
         //var document = collection.Find(new BsonDocument()).FirstOrDefault();
         var document = await collection.Find(new BsonDocument()).ToListAsync();
+        Console.WriteLine(document.ToString());
+        Console.WriteLine(document.Count);
 
         IEnumerable<string> jsonArray = new List<string>();
 

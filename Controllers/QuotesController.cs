@@ -32,7 +32,7 @@ public class QuotesController : ControllerBase
 
         var collection = client.GetDatabase("quote").GetCollection<BsonDocument>("quote");
 
-        var filter = Builders<BsonDocument>.Filter.Eq("id", 1);
+        var filter = Builders<BsonDocument>.Filter.Eq("id", 2);
 
         var document = collection.Find(filter).First();
 

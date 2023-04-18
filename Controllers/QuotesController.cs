@@ -17,7 +17,7 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet(Name = "quotes")]
-    public async Task<IEnumerable<string>> Get()
+    public async Task<List<object>> Get()
     {
 
         // Read list from MongoDB
@@ -36,20 +36,11 @@ public class QuotesController : ControllerBase
         //var document = collection.Find(new BsonDocument()).FirstOrDefault();
         List<BsonDocument> documentList = await collection.Find(new BsonDocument()).ToListAsync();
 
-        Console.WriteLine(documentList.Count);
-
-        IEnumerable<string> jsonArray = new List<string>();
-
-        documentList.ForEach(item => {
-            var dotNetObj = BsonTypeMapper.MapToDotNetValue(item);
-            Console.WriteLine(dotNetObj.ToString());
-            jsonArray.Append(dotNetObj);
-        });
-        
+        var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);    
 
         //Console.WriteLine(document.ToString());
         
         //return JsonConvert.SerializeObject(jsonArray);;
-        return jsonArray;
+        return dotNetObjList;
     }
 }

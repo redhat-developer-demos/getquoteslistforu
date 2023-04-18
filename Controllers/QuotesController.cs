@@ -17,10 +17,10 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet(Name = "quotes")]
-    public string Get()
+    public async Task<IEnumerable<string>> Get()
     {
 
-        // TODO: Read list from MongoDB
+        // Read list from MongoDB
         var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
         //var connectionString = "mongodb://quote:quote@quote/quote";
         if (connectionString == null)
@@ -33,16 +33,20 @@ public class QuotesController : ControllerBase
 
         var collection = client.GetDatabase("quote").GetCollection<BsonDocument>("quote");
 
-        var document = collection.Find(new BsonDocument()).FirstOrDefault();
-        var dotNetObj = BsonTypeMapper.MapToDotNetValue(document);
+        //var document = collection.Find(new BsonDocument()).FirstOrDefault();
+        var document = await collection.Find(new BsonDocument()).ToListAsync();
 
+        IEnumerable<string> jsonArray = new List<string>();
 
-        Console.WriteLine(document.ToString());
+        document.ForEach(item => {
+            var dotNetObj = BsonTypeMapper.MapToDotNetValue(item);
+            jsonArray.Append(dotNetObj);
+        });
+        
 
-        //var filter = Builders<BsonDocument>.Filter.Eq("id", 2);
-
-        //var document = collection.Find(filter).First();
-
-        return JsonConvert.SerializeObject(dotNetObj);;
+        //Console.WriteLine(document.ToString());
+        
+        //return JsonConvert.SerializeObject(jsonArray);;
+        return jsonArray;
     }
 }

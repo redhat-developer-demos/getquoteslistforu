@@ -33,14 +33,12 @@ public class QuotesController : ControllerBase
 
         var collection = client.GetDatabase("quote").GetCollection<BsonDocument>("quote");
 
-        //var document = collection.Find(new BsonDocument()).FirstOrDefault();
         List<BsonDocument> documentList = await collection.Find(new BsonDocument()).ToListAsync();
 
         var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);    
 
-        //Console.WriteLine(document.ToString());
-        
-        //return JsonConvert.SerializeObject(jsonArray);;
+        String s = String.Format("Returning list containing {0} objects", dotNetObjList.Count);
+        Console.WriteLine(s);
         return dotNetObjList;
     }
 }

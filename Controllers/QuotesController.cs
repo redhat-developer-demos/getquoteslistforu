@@ -20,8 +20,8 @@ public class QuotesController : ControllerBase
     {
 
         // TODO: Read list from MongoDB
-        //var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
-        var connectionString = "mongodb://quote:quote@quote/quote";
+        var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
+        //var connectionString = "mongodb://quote:quote@quote/quote";
         if (connectionString == null)
         {
             Console.WriteLine("You must set your 'MONGODB_URI' environmental variable. See\n\t https://www.mongodb.com/docs/drivers/go/current/usage-examples/#environment-variable");

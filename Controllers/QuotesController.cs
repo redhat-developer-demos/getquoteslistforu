@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace getquoteslistforu.Controllers;
 
@@ -16,7 +17,7 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet(Name = "quotes")]
-    public BsonDocument Get()
+    public string Get()
     {
 
         // TODO: Read list from MongoDB
@@ -33,12 +34,15 @@ public class QuotesController : ControllerBase
         var collection = client.GetDatabase("quote").GetCollection<BsonDocument>("quote");
 
         var document = collection.Find(new BsonDocument()).FirstOrDefault();
+        var dotNetObj = BsonTypeMapper.MapToDotNetValue(document);
+
+
         Console.WriteLine(document.ToString());
 
         //var filter = Builders<BsonDocument>.Filter.Eq("id", 2);
 
         //var document = collection.Find(filter).First();
 
-        return document;
+        return JsonConvert.SerializeObject(dotNetObj);;
     }
 }

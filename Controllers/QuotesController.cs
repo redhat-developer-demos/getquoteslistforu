@@ -37,8 +37,10 @@ public class QuotesController : ControllerBase
 
         var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);    
 
-        String s = String.Format("Returning list containing {0} objects", dotNetObjList.Count);
+        String s = String.Format("Returning JSON list containing {0} objects", dotNetObjList.Count);
+        
         Console.WriteLine(s);
+
         return dotNetObjList;
     }
 }

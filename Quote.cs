@@ -4,10 +4,8 @@ namespace getquoteslistforu;
 
 public class Quote
 {
-    [JsonPropertyName("_id")]
-    public object? mongo_id { get; set; }
+    public object? _id { get; set; }
 
-    [JsonPropertyName("quoteID")]
     public int? quoteID { get; set; }
 
     public string? author { get; set; }

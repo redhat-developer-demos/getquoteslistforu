@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Newtonsoft.Json;
+using MongoDB.Bson.Serialization;
 
 namespace getquoteslistforu.Controllers;
 
@@ -52,6 +53,9 @@ public class QuotesController : ControllerBase
         var collection = client.GetDatabase("quote").GetCollection<BsonDocument>("quote");
         List<BsonDocument> documentList = await collection.Find(new BsonDocument()).ToListAsync();
         var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);
+
+        List<Quote> listOfQuotes = dotNetObjList.Select(v => BsonSerializer.Deserialize<Quote>((BsonDocument)v)).ToList();
+
         String s = String.Format("Returning JSON list containing {0} objects", dotNetObjList.Count);
         Console.WriteLine(s);
         // get random entry
@@ -59,7 +63,8 @@ public class QuotesController : ControllerBase
         Random rnd = new Random();
         int x = rnd.Next(0,mx-1);
         Quote q = new Quote();
-        q = JsonConvert.DeserializeObject<Quote>(dotNetObjList[1].ToJson());
+        
+        q = listOfQuotes[mx];
         return q;
     }
 }

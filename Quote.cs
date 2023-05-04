@@ -1,8 +1,13 @@
+using System.Text.Json.Serialization;
+
 namespace getquoteslistforu;
 
 public class Quote
 {
-    public object? _id { get; set;}
+    [JsonPropertyName("_id")]
+    public int? mongo_id { get; set; }
+    
+    [JsonPropertyName("id")]
     public int? id { get; set; }
 
     public string? author { get; set; }

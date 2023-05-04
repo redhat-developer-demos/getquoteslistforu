@@ -17,7 +17,6 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet(Name = "quotes")]
-    [Route("/quotes")]
     public async Task<List<object>> Get()
     {
 

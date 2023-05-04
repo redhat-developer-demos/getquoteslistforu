@@ -59,7 +59,7 @@ public class QuotesController : ControllerBase
         Random rnd = new Random();
         int x = rnd.Next(0,mx-1);
         Quote q = new Quote();
-        q = JsonConvert.DeserializeObject<Quote>(dotNetObjList[mx].ToJson());
+        q = JsonConvert.DeserializeObject<Quote>(dotNetObjList[1].ToJson());
         return q;
     }
 }

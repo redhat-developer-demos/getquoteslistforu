@@ -50,7 +50,7 @@ public class QuotesController : ControllerBase
             Environment.Exit(0);
         }
         var client = new MongoClient(connectionString);
-        var collection = client.GetDatabase("quote").GetCollection<Quote>("quote");
+        var collection = client.GetDatabase("quote").GetCollection<BsonDocument>("quote");
         var documentList = await collection.Find(new BsonDocument()).ToListAsync();
         //var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);
 
@@ -63,8 +63,9 @@ public class QuotesController : ControllerBase
         Random rnd = new Random();
         int x = rnd.Next(0,mx-1);
         Quote q = new Quote();
-        
-        q = documentList[mx];
+
+        q = BsonSerializer.Deserialize<Quote>(documentList[x]);
+
         return q;
     }
 }

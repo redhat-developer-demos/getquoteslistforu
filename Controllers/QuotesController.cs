@@ -17,6 +17,7 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet(Name = "quotes")]
+    [Route("/quotes")]
     public async Task<List<object>> Get()
     {
 
@@ -38,6 +39,7 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet(Name = "random")]
+    [Route("/random")]
     public async Task<Quote> GetRandom() {
         // Read list from MongoDB
         var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");

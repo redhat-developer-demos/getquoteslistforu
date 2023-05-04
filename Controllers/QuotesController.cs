@@ -51,7 +51,7 @@ public class QuotesController : ControllerBase
         }
         var client = new MongoClient(connectionString);
         var collection = client.GetDatabase("quote").GetCollection<Quote>("quote");
-        List<Quote> documentList = await collection.Find(new BsonDocument()).ToListAsync();
+        var documentList = await collection.Find(new BsonDocument()).ToListAsync();
         //var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);
 
         //List<Quote> listOfQuotes = dotNetObjList.Select(v => BsonSerializer.Deserialize<Quote>(v).ToList());

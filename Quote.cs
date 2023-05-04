@@ -7,8 +7,8 @@ public class Quote
     [JsonPropertyName("_id")]
     public object? mongo_id { get; set; }
 
-    [JsonPropertyName("id")]
-    public int? id { get; set; }
+    [JsonPropertyName("quoteID")]
+    public int? quoteID { get; set; }
 
     public string? author { get; set; }
 

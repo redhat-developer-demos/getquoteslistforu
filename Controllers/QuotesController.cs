@@ -50,21 +50,21 @@ public class QuotesController : ControllerBase
             Environment.Exit(0);
         }
         var client = new MongoClient(connectionString);
-        var collection = client.GetDatabase("quote").GetCollection<BsonDocument>("quote");
-        List<BsonDocument> documentList = await collection.Find(new BsonDocument()).ToListAsync();
-        var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);
+        var collection = client.GetDatabase("quote").GetCollection<Quote>("quote");
+        List<Quote> documentList = await collection.Find(new BsonDocument()).ToListAsync();
+        //var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);
 
-        List<Quote> listOfQuotes = dotNetObjList.Select(v => BsonSerializer.Deserialize<Quote>((BsonDocument)v)).ToList();
+        //List<Quote> listOfQuotes = dotNetObjList.Select(v => BsonSerializer.Deserialize<Quote>(v).ToList());
 
         String s = String.Format("Returning JSON list containing {0} objects", dotNetObjList.Count);
         Console.WriteLine(s);
         // get random entry
-        int mx = dotNetObjList.Count;
+        int mx = documentList.Count;
         Random rnd = new Random();
         int x = rnd.Next(0,mx-1);
         Quote q = new Quote();
         
-        q = listOfQuotes[mx];
+        q = documentList[mx];
         return q;
     }
 }

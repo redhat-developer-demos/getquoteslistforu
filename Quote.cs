@@ -2,7 +2,8 @@ namespace getquoteslistforu;
 
 public class Quote
 {
-    public int id { get; set; }
+    public object? _id { get; set;}
+    public int? id { get; set; }
 
     public string? author { get; set; }
 

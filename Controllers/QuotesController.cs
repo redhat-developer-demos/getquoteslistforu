@@ -16,7 +16,7 @@ public class QuotesController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "quotes")]
+    [HttpGet]
     public async Task<List<object>> Get()
     {
 
@@ -37,7 +37,7 @@ public class QuotesController : ControllerBase
         return dotNetObjList;
     }
 
-    [HttpGet(Name = "random")]
+    [HttpGet]
     [Route("/random")]
     public async Task<Quote> GetRandom() {
         // Read list from MongoDB

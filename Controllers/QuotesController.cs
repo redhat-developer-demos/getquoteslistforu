@@ -38,7 +38,7 @@ public class QuotesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/random")]
+    [Route("/quotes/random")]
     public async Task<Quote> GetRandom() {
         // Read list from MongoDB
         var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
@@ -51,7 +51,7 @@ public class QuotesController : ControllerBase
         var client = new MongoClient(connectionString);
         var collection = client.GetDatabase("quote").GetCollection<BsonDocument>("quote");
         List<BsonDocument> documentList = await collection.Find(new BsonDocument()).ToListAsync();
-        var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);    
+        var dotNetObjList = documentList.ConvertAll(BsonTypeMapper.MapToDotNetValue);
         String s = String.Format("Returning JSON list containing {0} objects", dotNetObjList.Count);
         Console.WriteLine(s);
         // get random entry
@@ -59,10 +59,7 @@ public class QuotesController : ControllerBase
         Random rnd = new Random();
         int x = rnd.Next(0,mx-1);
         Quote q = new Quote();
-        q.id=1;
-        q.author="test";
-        q.quotation="this is a test";
-//        Quote q = JsonConvert.DeserializeObject<Quote>(dotNetObjList[mx].ToJson());
+        q = JsonConvert.DeserializeObject<Quote>(dotNetObjList[mx].ToJson());
         return q;
     }
 }

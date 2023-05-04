@@ -58,7 +58,11 @@ public class QuotesController : ControllerBase
         int mx = dotNetObjList.Count;
         Random rnd = new Random();
         int x = rnd.Next(0,mx-1);
-        Quote q = JsonConvert.DeserializeObject<Quote>(dotNetObjList[mx].ToJson());
+        Quote q = new Quote();
+        q.id=1;
+        q.author="test";
+        q.quotation="this is a test";
+//        Quote q = JsonConvert.DeserializeObject<Quote>(dotNetObjList[mx].ToJson());
         return q;
     }
 }

@@ -56,7 +56,7 @@ public class QuotesController : ControllerBase
 
         //List<Quote> listOfQuotes = dotNetObjList.Select(v => BsonSerializer.Deserialize<Quote>(v).ToList());
 
-        String s = String.Format("Returning JSON list containing {0} objects", dotNetObjList.Count);
+        String s = String.Format("Returning JSON list containing {0} objects", documentList.Count);
         Console.WriteLine(s);
         // get random entry
         int mx = documentList.Count;

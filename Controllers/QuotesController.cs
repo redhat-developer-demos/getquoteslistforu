@@ -61,7 +61,7 @@ public class QuotesController : ControllerBase
         // get random entry
         int mx = documentList.Count;
         Random rnd = new Random();
-        int x = rnd.Next(0,mx-1);
+        int x = rnd.Next(0,mx);
         Quote q = new Quote();
 
         q = BsonSerializer.Deserialize<Quote>(documentList[x]);

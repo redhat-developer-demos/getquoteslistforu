@@ -63,11 +63,11 @@ public class QuotesController : ControllerBase
         Random rnd = new Random();
         int x = rnd.Next(0,mx);
         Quote q = new Quote();
-        q.quoteID = 555;
+/*         q.quoteID = 555;
         q.author = "not me";
         q.quotation = "you just ruined this, Don";
-
-        //q = BsonSerializer.Deserialize<Quote>(documentList[x]);
+ */
+        q = BsonSerializer.Deserialize<Quote>(documentList[x]);
 
         return q;
     }

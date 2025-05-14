@@ -1,0 +1,115 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: getquoteslistforu
+      app.kubernetes.io/component: getquoteslistforu
+      app.kubernetes.io/instance: getquoteslistforu
+      language: csharp
+      quotesforu: dataaccess
+      sandbox: labels
+      tier: dataaccess
+    name: getquoteslistforu
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: quay.io/rhdevelopers/getquoteslistforu:latest
+      from:
+        kind: DockerImage
+        name: quay.io/rhdevelopers/getquoteslistforu:latest
+      generation: null
+      importPolicy:
+        importMode: Legacy
+      name: latest
+      referencePolicy:
+        type: ""
+  status:
+    dockerImageRepository: ""
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"getquoteslistforu:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"getquoteslistforu\")].image"}]'
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app.kubernetes.io/part-of: quotesforu
+      app: getquoteslistforu
+      app.kubernetes.io/component: getquoteslistforu
+      app.kubernetes.io/instance: getquoteslistforu
+      language: csharp
+      quotesforu: dataaccess
+      sandbox: labels
+      tier: dataaccess
+    name: getquoteslistforu
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: getquoteslistforu
+        language: csharp
+        quotesforu: dataaccess
+        sandbox: labels
+        tier: dataaccess
+    strategy: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deployment: getquoteslistforu
+          language: csharp
+          quotesforu: dataaccess
+          sandbox: labels
+          tier: dataaccess
+      spec:
+        containers:
+        - image: ' '
+          name: getquoteslistforu
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+            - name: MONGODB_URI
+              value: 'mongodb://quote:quote@quote/quote'
+          resources: {}
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: getquoteslistforu
+      app.kubernetes.io/component: getquoteslistforu
+      app.kubernetes.io/instance: getquoteslistforu
+      language: csharp
+      quotesforu: dataaccess
+      sandbox: labels
+      tier: dataaccess
+    name: getquoteslistforu
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      deployment: getquoteslistforu
+      language: csharp
+      quotesforu: dataaccess
+      sandbox: labels
+      tier: dataaccess
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}

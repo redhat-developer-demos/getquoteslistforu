@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ContainerRepository>getquoteslistforu</ContainerRepository>
+    <ContainerRegistry>quay.io</ContainerRegistry>
   </PropertyGroup>
 
   <ItemGroup>
